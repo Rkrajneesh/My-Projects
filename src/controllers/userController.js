@@ -1,7 +1,6 @@
 const userModel = require("../Models/userModel")
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
-const ObjectId = mongoose.Types.ObjectId
 const bcrypt = require('bcrypt')
 let saltRounds = 10
 const aws = require('aws-sdk')
@@ -10,22 +9,10 @@ const aws = require('aws-sdk')
 
 
 
-const isValid = function (value) {
-    if (typeof value === 'undefined' || value === null) return false
-    if (typeof value === 'string' && value.trim().length === 0) return false
-    if (typeof value === 'number' && value.toString().trim().length === 0) return false
-    return true;
-}
-const isValidObjectId = function (objectId) {
-    return mongoose.Types.ObjectId.isValid(objectId)
-}
-aws.config.update(
-    {
-        accessKeyId: "AKIAY3L35MCRVFM24Q7U",
-        secretAccessKey: "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",
-        region: "ap-south-1"
-    }
-)
+const { isValid, isValidObjectId } = require("../middlewares/validator.js")
+
+
+
 
 let uploadFile = async (file) => {
     return new Promise(async function (resolve, reject) {
@@ -263,7 +250,7 @@ const updateUserDetails = async function (req, res) {
             }
         }
         if (Data.hasOwnProperty("address")) {
-            
+
             if (address.hasOwnProperty("shipping")) {
                 let shipping = address.shipping
 
@@ -334,4 +321,6 @@ const updateUserDetails = async function (req, res) {
         res.status(500).send({ msg: "server error", err: error })
     }
 }
+
+
 module.exports = { createUser, loginUser, getUserDetails, updateUserDetails }

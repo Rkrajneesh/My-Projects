@@ -3,18 +3,11 @@ const mongoose = require('mongoose')
 const userModel = require("../Models/userModel")
 const productModel = require("../Models/productModel")
 const orderModel = require("../Models/orderModel")
-const ObjectId = mongoose.Types.ObjectId
 
-const isValid = function (value) {
-    if (typeof value === 'undefined' || value === null) return false
-    if (typeof value === 'string' && value.trim().length === 0) return false
-    if (typeof value === 'number' && value.toString().trim().length === 0) return false
-    return true;
-}
+const { isValid, isValidObjectId } = require("../middlewares/validator.js")
 
-const isValidObjectId = function (objectId) {
-    return mongoose.Types.ObjectId.isValid(objectId)
-}
+
+
 
 const createOrder = async function (req, res) {
     try {

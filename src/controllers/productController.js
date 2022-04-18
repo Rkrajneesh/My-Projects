@@ -1,21 +1,10 @@
 const productModel = require("../Models/productModel")
 const mongoose = require('mongoose')
-const ObjectId = mongoose.Types.ObjectId
 const aws = require('aws-sdk')
 
-const isValid = function (value) {
-    if (typeof value === 'undefined' || value === null) return false
-    if (typeof value === 'string' && value.trim().length === 0) return false
-    if (typeof value === 'number' && value.toString().trim().length === 0) return false
-    return true;
-}
+const { isValid, isValidObjectId } = require("../middlewares/validator.js")
 
-const isValidObjectId = function (objectId) {
-    return mongoose.Types.ObjectId.isValid(objectId)
-}
-// const isValidAvailableSizes = function (availableSizes) {
-//     return ["S", "XS", "M", "X", "L", "XXL", "XL"].indexOf(availableSizes) == ["S", "XS", "M", "X", "L", "XXL", "XL"].lastIndexOf(availableSizes) !== -1
-// }
+
 aws.config.update(
     {
         accessKeyId: "AKIAY3L35MCRVFM24Q7U",

@@ -2,18 +2,8 @@ const cartModel = require("../Models/cartModel")
 const mongoose = require('mongoose')
 const userModel = require("../Models/userModel")
 const productModel = require("../Models/productModel")
-const ObjectId = mongoose.Types.ObjectId
 
-const isValid = function (value) {
-    if (typeof value === 'undefined' || value === null) return false
-    if (typeof value === 'string' && value.trim().length === 0) return false
-    if (typeof value === 'number' && value.toString().trim().length === 0) return false
-    return true;
-}
-
-const isValidObjectId = function (objectId) {
-    return mongoose.Types.ObjectId.isValid(objectId)
-}
+const { isValid, isValidObjectId } = require("../middlewares/validator.js")
 
 const createCart = async function (req, res) {
     try {
