@@ -110,7 +110,7 @@ const createProduct = async function (req, res) {
             let profilePic = await uploadFile(files[0])
             let productToBeCreated = { title, description, price, currencyId, currencyFormat, isFreeShipping, productImage: profilePic, style, availableSizes, installments, isDeleted }
             let productCreated = await productModel.create(productToBeCreated)
-            return res.status(201).send({ status: true, msg: "product created successfully", data: productCreated })
+            return res.status(201).send({ status: true, message: "Success", data: productCreated })
         }
     }
     catch (error) {
@@ -156,7 +156,7 @@ const getFilterProduct = async function (req, res) {
             return res.status(404).send({ status: false, msg: "product not exist" })
         }
         else {
-            return res.status(200).send({ status: true, msg: "product details fetched successfully", noOfProducts: productDetails.length, data: productDetails })
+            return res.status(200).send({ status: true, message: "Success", noOfProducts: productDetails.length, data: productDetails })
         }
     }
     catch (error) {
@@ -177,7 +177,7 @@ const getProductDetails = async function (req, res) {
             return res.status(404).send({ status: false, msg: "product not exist with this productId" })
         }
         else {
-            return res.status(200).send({ status: true, msg: "details fetched successfully", data: productDetails })
+            return res.status(200).send({ status: true, message: "Success", data: productDetails })
         }
 
     }
@@ -189,6 +189,8 @@ const getProductDetails = async function (req, res) {
 
 const updateProductDetails = async function (req, res) {
     try {
+
+      
         let data = req.body.data
         let Data = JSON.parse(data)
         let files = req.files
@@ -258,7 +260,7 @@ const updateProductDetails = async function (req, res) {
             return res.status(404).send({ status: false, msg: "product not exist with this product id" })
         }
         else {
-            return res.status(200).send({ status: true, msg: "details updated successfully", data: updatedProduct })
+            return res.status(200).send({ status: true, message: "Success", data: updatedProduct })
         }
     }
     catch (error) {
@@ -279,7 +281,7 @@ const deleteProduct = async function (req, res) {
             return res.status(404).send({ status: false, msg: "product with this id not exist or already deleted" })
         }
         let deleteProductDetails = await productModel.findOneAndUpdate({ _id: productId, isDeleted: false }, { $set: { isDeleted: true, deletedAt: Date.now() } })
-        return res.status(200).send({ status: true, msg: "product is deleted successfully" })
+        return res.status(200).send({ status: true, message: "Success" })
     }
     catch (error) {
         console.log(error)

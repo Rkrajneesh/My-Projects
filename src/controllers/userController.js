@@ -155,7 +155,7 @@ const loginUser = async function (req, res) {
             else {
                 return res.status(404).send({ status: false, msg: "password is not matched" })
             }
-        }
+        }else return  res.status(404).send({ status: false, msg: "Email not found" })
 
     }
     catch (error) {
@@ -178,7 +178,7 @@ const getUserDetails = async function (req, res) {
             return res.status(404).send({ status: false, msg: "no user exist with this userId" })
         }
         else {
-            return res.status(200).send({ status: true, msg: "user profile details", data: userDetails })
+            return res.status(200).send({ status: true, message: "user profile details", data: userDetails })
         }
 
     }
@@ -313,7 +313,7 @@ const updateUserDetails = async function (req, res) {
             return res.status(404).send({ status: false, msg: "user not found with this id" })
         }
         else {
-            return res.status(200).send({ status: true, msg: "user details updated successfully", data: userDetailsToBeUpdated })
+            return res.status(200).send({ status: true, message: "user details updated successfully", data: userDetailsToBeUpdated })
         }
     }
     catch (error) {

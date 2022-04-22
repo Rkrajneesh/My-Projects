@@ -82,9 +82,9 @@ const updateOrder = async function (req, res) {
         if (!isValid(status)) {
             return res.status(400).send({ status: false, msg: "status is required" })
         }
-        if (status != "cancelled") {
-            return res.status(400).send({ status: false, msg: "you can only update your cancellation status" })
-        }
+        // if (status != "cancelled") {
+        //     return res.status(400).send({ status: false, msg: "you can only update your cancellation status" })
+        // }
 
         let userDetails = await userModel.findOne({ _id: userId })
         if (!userDetails) {
